@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'price', 'signup', 'bought', 'due_date'];
+    protected $fillable = ['name', 'price', 'minimun_sale', 'bought', 'due_date'];
     protected $dates = ['due_date'];
 
     /**

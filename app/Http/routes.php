@@ -18,3 +18,5 @@ Route::get('/', function () {
 
 Route::resource('products', 'ProductsController');
 Route::get('products/{id}/confirm', 'ProductsController@confirm');
+Route::get('orders/{id}/checkout', 'OrdersController@checkout');
+Route::get('orders/{id}/purchase', 'PaymentsController@purchase');

@@ -16,7 +16,7 @@ class CreateProdcutsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('price');
-            $table->integer('signup')->default(0);
+            $table->integer('minimun_sale')->default(0);
             $table->integer('bought')->default(0);
             $table->datetime('due_date')->default(0);
             $table->timestamps();

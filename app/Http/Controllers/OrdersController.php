@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Product;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 
-class ProductsController extends Controller
+use App\Http\Requests;
+use App\Order;
+
+class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,27 +16,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->get();
-        return view("products.index", ['products' => $products]);
+        // show recent order 
     }
-
-    /**
-     * Confirm the products purchase
-     *
-     * @return void
-     */
-
-    public function confirm(Request $request, $id)
-    {
-        $product = Product::find($id);
-
-        $product->bought += 1;
-        $product->save();
-        $product->orders()->create(["valid" => false]);
-        return "cannot bought";
-
-    }
-    
 
     /**
      * Show the form for creating a new resource.
@@ -45,7 +26,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-       return view('products.create'); 
+        //chec
     }
 
     /**
@@ -56,8 +37,7 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $product = Product::create($request->all());
-        return redirect()->route('products.show', $product->id);
+        //
     }
 
     /**
@@ -68,8 +48,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product  = Product::findOrFail($id);
-        return view("products.show", ['product' => $product]);
+        //
     }
 
     /**
@@ -80,8 +59,7 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
-        return view('products.edit', compact('product'));
+        //
     }
 
     /**
@@ -93,9 +71,7 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = Product::find($id);
-        $product->update($request->all());
-        return $product;
+        //
     }
 
     /**
@@ -109,5 +85,21 @@ class ProductsController extends Controller
         //
     }
 
+    /**
+     *  Check out user order
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function checkout( Request $request, $id )
+    {
+        $order = Order::find($id);
+        $products = $order->products;
+        $order->delivery()->create(['ship' => false, 'arrive' => false]);
+        return view( "orders.checkout", ['products' => $products] );
+
+    }
+
+ // $router -> order/id/checkout -> checkout page | delete item   
 }
-    
+

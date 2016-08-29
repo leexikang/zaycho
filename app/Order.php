@@ -14,7 +14,17 @@ class Order extends Model
      */
     public function products()
     {
-        return $this->belongToMany('App\Product', 'order_details');
+        return $this->belongsToMany('App\Product', 'order_details');
+    }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function delivery()
+    {
+        return $this->hasOne('App\Delivery');
     }
     
 }

@@ -12,5 +12,8 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.sass('app.scss');
+
+    mix.sass('app.scss', null, { includePaths: ['node_modules/foundation-sites/scss'] });
+    mix.scriptsIn('node_modules/foundation-sites/dist/foundation.js');
+
 });

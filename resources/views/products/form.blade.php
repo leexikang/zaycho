@@ -18,11 +18,12 @@
 
    <div>
 
-        {{ Form::label('signup', 'Signup:') }}
-        {{ Form::text('signup') }}
+        {{ Form::label('minimun_sale', 'Minimun Sale:') }}
+        {{ Form::text('minimun_sale') }}
 
     </div>
 
   <div>
         {{ Form::submit('create') }}
+
     </div>

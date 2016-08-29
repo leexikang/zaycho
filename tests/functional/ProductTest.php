@@ -38,26 +38,11 @@ class ProductTest extends TestCase
 
     }
 
-    /**
-     * Test user can bought product
-     *
-     * @return void
-     */
-    public function testUserCanBoughtProdcut()
-    {
-
-        $fixture = $this->getFixture();
-        TestDummy::create('App\Product', $fixture);
-            $this->buyProduct()
-            ->seePageis('/products/1/confirm')
-            ->see('Can Bought');
-    }
-   
+  
    /**
      * Test the product is due
      *
      * @return void
-    */
 
     public function testDueDate()
     {
@@ -72,7 +57,8 @@ class ProductTest extends TestCase
      * undocumented function
      *
      * @return void
-     */
+    */
+
     public function test_it_create_prodcut()
     {
         $product = $this->getFixture();
@@ -82,7 +68,7 @@ class ProductTest extends TestCase
             ->seePageIs('products/create')
             ->type($product['name'], 'name')
             ->type($product['price'], 'price')
-            ->type($product['signup'], 'signup')
+            ->type($product['minimun_sale'], 'minimun_sale')
             ->type($product['due_date'], 'due_date')
             ->press('create')
     //        ->dump();
@@ -98,17 +84,18 @@ class ProductTest extends TestCase
     public function test_it_update_it()
     {
         $product = ['name' => 'Sony', 
-            'price' => 1200,
-            'signup' => 300,
+            'price' => 1300,
+            'minimun_sale' => 400,
             'due_date' => "2016-05-10 00:00:00"
         ];
+
         $fixture = $this->getFixture();
         TestDummy::create('App\Product', $fixture); 
         $this->visit('/products/1/edit')
             ->see($fixture['name'])
             ->type($product['name'], 'name')
             ->type($product['price'], 'price')
-            ->type($product['signup'], 'signup')
+            ->type($product['minimun_sale'], 'minimun_sale')
             ->type($product['due_date'], 'due_date')
             ->press('create')
             ->seeInDatabase('products', $product);
@@ -136,7 +123,7 @@ class ProductTest extends TestCase
             "id" => 1,
             "name" => "Samsung",
             "price" => 12000,
-            "signup" => 200,
+            "minimun_sale" => 200,
             "bought" => 300,
             "due_date" => Carbon::tomorrow()->format('Y-m-d')
         ];
