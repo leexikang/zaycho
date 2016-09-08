@@ -24,6 +24,6 @@
     </div>
 
   <div>
-        {{ Form::submit('create') }}
+  {{ Form::submit('create', ['class' => 'button expanded']) }}
 
     </div>

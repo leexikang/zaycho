@@ -11,7 +11,6 @@
     </body>
     <script type="text/javascript" src="/js/all.js"></script>
 </html>
-//initializing foundaiton 
 <script type="text/javascript">
 	$(document).foundation();
 </script>

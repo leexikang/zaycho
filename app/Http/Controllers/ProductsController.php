@@ -25,15 +25,13 @@ class ProductsController extends Controller
      *
      * @return void
      */
-
     public function confirm(Request $request, $id)
     {
         $product = Product::find($id);
-
         $product->bought += 1;
         $product->save();
-        $product->orders()->create(["valid" => false]);
-        return "cannot bought";
+        $order =  $product->orders()->create(["valid" => false]);
+        return redirect()->route('checkout', ['id' =>  $order->id]);
 
     }
     

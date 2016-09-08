@@ -46,7 +46,7 @@ class ProductUnitTest extends TestCase
     public function testDateIsDue()
     {
         $product = TestDummy::build('App\Product', ["due_date" => new DateTime('yesterday') ]); 
-        $this->assertFalse($product->isDue());
+        $this->assertTrue($product->isDue());
     }
 
     /**

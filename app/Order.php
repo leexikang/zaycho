@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = ['ship'];
+    protected $fillable = ['ship', 'created_at', 'updated_at'];
     /**
      * undocumented function
      *

@@ -10,7 +10,6 @@ class ProductTest extends TestCase
 {
     use DatabaseMigrations;
     use DatabaseTransactions;
-    use WithoutMiddleware;
 
    
    public function testshowproduct(){
@@ -30,11 +29,15 @@ class ProductTest extends TestCase
         $fixture = $this->getFixture();
         $fixture['bought'] = 0;
         TestDummy::create('App\Product', $fixture);
-        $this->buyProduct()
-            ->seePageIs('/products/1/confirm')
-            ->see('Cannot Bought')
-            ->seeInDatabase('products', ['id' => '1', 'bought' => '1' ])
-            ->seeInDatabase('order_details', ['product_id' => '1']);
+        $this->visit('/products')
+            ->click('See More')
+            ->type(11, 'quantity')
+            ->press('Buy')
+            ->seePageIs('orders/confirm')
+            ->see($fixture['name'])
+            ->see(11);
+            //->seeInDatabase('products', ['id' => '1', 'bought' => '1' ])
+            //->seeInDatabase('order_details', ['product_id' => '1'])
 
     }
 
@@ -109,8 +112,7 @@ class ProductTest extends TestCase
      */
     private function buyProduct()
     {
-        return $this->visit('/products')->click('Buy');
-    }
+            }
 
     /**
      * return fixture

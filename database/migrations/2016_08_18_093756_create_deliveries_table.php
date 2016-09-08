@@ -18,7 +18,7 @@ class CreateDeliveriesTable extends Migration
             $table->boolean('arrive')->default(false);
             $table->datetime('arrival_date')->default(0);
             $table->integer('order_id')->unsigned();
-            $table->foreign('order_id')->references('id')->on('order')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->timestamps();
         });
     }

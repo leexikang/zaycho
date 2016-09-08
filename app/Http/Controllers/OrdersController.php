@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Order;
+use App\Product;
 
 class OrdersController extends Controller
 {
@@ -86,6 +87,35 @@ class OrdersController extends Controller
     }
 
     /**
+     * Confirm product purchase 
+     *
+     * @return void
+     */
+    public function confirm(Request $request)
+    {
+        $this->cleanSession($request);
+        $id = $request->input('product');
+        $quantity = $request->input('quantity');
+        $request->session()->put(['product' => ['id' => $id, 'quantity' => $quantity );
+        $product = Product::find($id);
+        $product->push('quantity', $quantity);
+        return view("orders.confirm", ['product' => $product, 'quantity' => $quantity ]);
+
+
+    }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function add(Request $request)
+    {
+        $product = $request->session()->get('product');
+    }
+    
+    
+    /**
      *  Check out user order
      *
      * @param  int  $id
@@ -99,7 +129,21 @@ class OrdersController extends Controller
         return view( "orders.checkout", ['products' => $products] );
 
     }
+    
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    private function cleanSession(Request $request)
+    {
 
- // $router -> order/id/checkout -> checkout page | delete item   
+        if ($request->session()->has('product')) {
+            $request->session()->forget('product');
+        }
+
+    }
+
+
 }
 
