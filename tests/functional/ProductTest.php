@@ -11,9 +11,15 @@ class ProductTest extends TestCase
     use DatabaseMigrations;
     use DatabaseTransactions;
 
-   
-   public function testshowproduct(){
-        TestDummy::create('App\Product', ['name' => 'Samsung']);
+    public function testshowproduct(){
+
+
+        $this->createDependencyTable();
+        TestDummy::create('App\Product', ['name' => 'Samsung', 
+            'category_id' => "1",
+            'supplier_id' => "1",
+        ]);
+
         $this->visit('/products')
             ->see('Samsung');
          //   ->see('Hello');
@@ -35,9 +41,12 @@ class ProductTest extends TestCase
             ->press('Buy')
             ->seePageIs('orders/confirm')
             ->see($fixture['name'])
-            ->see(11);
-            //->seeInDatabase('products', ['id' => '1', 'bought' => '1' ])
-            //->seeInDatabase('order_details', ['product_id' => '1'])
+            ->see(11)
+            ->press('add')
+            ->seeInDatabase('products', ['id' => '1', 'bought' => '11' ])
+            ->seeInDatabase('order_details', ['product_id' => '1',
+            'quantity' => '11'
+        ]);
 
     }
 
@@ -110,9 +119,23 @@ class ProductTest extends TestCase
      *
      * @return void
      */
-    private function buyProduct()
+    public function createCategory()
     {
-            }
+        TestDummy::create('App\Category', ['id' => 1]);
+    }
+
+    public function createSupplier()
+    {
+        TestDummy::create('App\Supplier', ['id' => 1]);
+    }
+
+    public function createDependencyTable(){
+
+        $this->createCategory();
+        $this->createSupplier();
+
+    }
+
 
     /**
      * return fixture
@@ -121,13 +144,19 @@ class ProductTest extends TestCase
      */
     private function getFixture()
     {
+        $this->createDependencyTable();
+
+/*        TestDummy::create('App\Category', ['id' => 1]);*/
+        /*TestDummy::create('App\Supplier', ['id' => 1]);*/
         return [
             "id" => 1,
             "name" => "Samsung",
             "price" => 12000,
             "minimun_sale" => 200,
             "bought" => 300,
-            "due_date" => Carbon::tomorrow()->format('Y-m-d')
+            "due_date" => Carbon::tomorrow()->format('Y-m-d'),
+            "category_id" => 1,
+            "supplier_id" => 1,
         ];
 
 

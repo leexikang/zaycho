@@ -93,14 +93,10 @@ class OrdersController extends Controller
      */
     public function confirm(Request $request)
     {
-        $this->cleanSession($request);
         $id = $request->input('product');
         $quantity = $request->input('quantity');
-        $request->session()->put(['product' => ['id' => $id, 'quantity' => $quantity );
         $product = Product::find($id);
-        $product->push('quantity', $quantity);
         return view("orders.confirm", ['product' => $product, 'quantity' => $quantity ]);
-
 
     }
 
@@ -111,7 +107,17 @@ class OrdersController extends Controller
      */
     public function add(Request $request)
     {
-        $product = $request->session()->get('product');
+        $order = Order::create();
+        $order->save();
+        $productId = $request->input('product');
+        $quantity = $request->input('quantity');
+        $product = Product::find($productId);
+        $product->bought += $quantity;
+        $product->save();
+        $order->products()->sync([$productId]);
+        $order->products->first()->pivot->quantity = $quantity;
+        $order->products->first()->pivot->save();
+        // redirec with flsh messaage !!!!!!
     }
     
     

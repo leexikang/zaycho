@@ -32,6 +32,8 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
         'minimun_sale' => 200,
         'bought' => $faker->biasedNumberBetween(50, 300),
         'due_date' => $faker->dateTimeThisYear('December')->format('Y-m-d'),
+        'category_id' => $faker->numberBetween(1,5),
+        'supplier_id' => $faker->numberBetween(1,10)
     ];
 });
 
@@ -43,5 +45,14 @@ $factory->define(App\Order::class, function (Faker\Generator $faker) {
     ];
 });
 
+
+// Supplier Table Factory
+//
+$factory->define(App\Supplier::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->company(),
+        'address' => $faker->streetAddress,
+    ];
+});
 
 

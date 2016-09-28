@@ -14,11 +14,6 @@ class ProductUnitTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
-    {
-        $this->assertTrue(true);
-    }
-
     public function testProductCanBeBought(){
 
         $product = TestDummy::build('App\Product', ['signup' => 1000,

@@ -5,19 +5,22 @@ namespace App\Providers;
 use App\Category;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class ViewComposerServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * Bootstrap the application services.
      *
      * @return void
      */
     public function boot()
     {
+        view()->composer('partials.subnav', function($view){
+            $view->with('categories', Category::all());
+        });
     }
 
     /**
-     * Register any application services.
+     * Register the application services.
      *
      * @return void
      */

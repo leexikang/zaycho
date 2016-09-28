@@ -71,6 +71,26 @@ class Product extends Model
     }
 
     /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
+    }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function supplier()
+    {
+        return $this->belongsTo('App\Supplier');
+    }
+    
+    /**
      * Check whether the date is due
      *
      * @return boolean
@@ -79,6 +99,6 @@ class Product extends Model
     {
         return $this->due_date->lt(Carbon::now());
     }
-    
+
     
 }
