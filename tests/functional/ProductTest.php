@@ -42,7 +42,7 @@ class ProductTest extends TestCase
             ->seePageIs('orders/confirm')
             ->see($fixture['name'])
             ->see(11)
-            ->press('add')
+            ->click('add')
             ->seeInDatabase('products', ['id' => '1', 'bought' => '11' ])
             ->seeInDatabase('order_details', ['product_id' => '1',
             'quantity' => '11'

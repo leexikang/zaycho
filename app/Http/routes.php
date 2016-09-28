@@ -19,12 +19,15 @@ Route::get('/', function () {
 Route::resource('products', 'ProductsController');
 //Order Route
 //
+Route::group(['middleware' => ['web']], function(){
 Route::post('orders/confirm', 'OrdersController@confirm');
-Route::post('orders/add', 'OrdersController@add');
+Route::get('orders/add', 'OrdersController@add');
+});
 
 Route::get('orders/{id}/checkout', [ 'as' => 'checkout', 'uses' =>
     'OrdersController@checkout' ]);
 Route::get('orders/{id}/purchase', 'PaymentsController@purchase');
+
 //
 //
 Route::get('category/{name}', 'CategoriesController@show');

@@ -93,9 +93,14 @@ class OrdersController extends Controller
      */
     public function confirm(Request $request)
     {
+
+        $this->cleanSession($request);
         $id = $request->input('product');
         $quantity = $request->input('quantity');
+        $request->session()->put('product', $id);
+        $request->session()->put('quantity', $quantity);
         $product = Product::find($id);
+
         return view("orders.confirm", ['product' => $product, 'quantity' => $quantity ]);
 
     }
@@ -107,10 +112,14 @@ class OrdersController extends Controller
      */
     public function add(Request $request)
     {
+        if( !$request->session()->has('product') || !$request->session()->has('quantity') ){
+            return redirect('/');
+        }
+
         $order = Order::create();
         $order->save();
-        $productId = $request->input('product');
-        $quantity = $request->input('quantity');
+        $productId = $request->session()->get('product');
+        $quantity = $request->session()->get('quantity');
         $product = Product::find($productId);
         $product->bought += $quantity;
         $product->save();
@@ -147,6 +156,11 @@ class OrdersController extends Controller
         if ($request->session()->has('product')) {
             $request->session()->forget('product');
         }
+
+        if ($request->session()->has('quantity')) {
+            $request->session()->forget('quantity');
+        }
+
 
     }
 

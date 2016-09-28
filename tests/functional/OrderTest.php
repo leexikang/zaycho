@@ -9,7 +9,6 @@ class OrderTest extends TestCase
 {
     use DatabaseMigrations;
     use DatabaseTransactions;
-    use WithoutMiddleware;
 
     /**
      * A basic test example.
@@ -28,7 +27,10 @@ class OrderTest extends TestCase
 
     }
 
-
+    public function test_it_redirect_when_no_product_session(){
+        $this->visit('orders/add')
+            ->seePageIs('/');
+    }
     private function createProductFixture(){
 
         return TestDummy::times(5)->create('App\Product');
