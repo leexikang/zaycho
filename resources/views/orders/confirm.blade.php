@@ -12,7 +12,7 @@
             </div>
 
             <div class="row checkout_wrapper">
-                <div class="small-8 columns">
+                <div class="small-7 columns">
                     <div class="media-object">
                         <div class="media-object-section">
                             <div class="thumbnail">
@@ -21,17 +21,17 @@
                         </div>
                         <div class="media-object-section">
                             <br/>
-                            <h5> {!! $product->name !!} </h5>
+                            <h5> <a href="{!! route('products.show', ['id' => $product->id]) !!}"> {!! $product->name !!} </a> </h5>
                         </div>
                     </div>
                 </div>
-                <div class="small-2 columns">
+                <div class="small-3 columns">
                     <br/>
-                    <span> {!! $quantity !!} x {!! $product->price !!} K </span>
+                    <span> {!! $quantity !!} x {!! $price = $product->price !!} = {!! $price * $quantity !!} Kyats </span>
                 </div>
                 <div class="small-2 columns">
                     <br/>
-                    <a href="#" class="alert small hollow button"> remove </a>
+                    <a href="{!! url('orders/remove') !!}" class="alert small hollow button"> remove </a>
                 </div>
             </div>
 
@@ -39,7 +39,7 @@
                 <div class="small-4 small-offset-8 columns">
                     <br/>
                     <a href="{!! url('orders/add') !!}" class="button"> Confirm </a>
-                    <a href="#" class="expaneded button"> Back to Shopping</a>
+                    <a href="{!! url('/products') !!}" class="expaneded button"> Back to Shopping</a>
                 </div>
             </div>
 

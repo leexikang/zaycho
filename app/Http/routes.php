@@ -22,12 +22,18 @@ Route::resource('products', 'ProductsController');
 Route::group(['middleware' => ['web']], function(){
 Route::post('orders/confirm', 'OrdersController@confirm');
 Route::get('orders/add', 'OrdersController@add');
+Route::get('orders/remove', 'OrdersController@flushOrder');
+
 });
 
 Route::get('orders/{id}/checkout', [ 'as' => 'checkout', 'uses' =>
     'OrdersController@checkout' ]);
 Route::get('orders/{id}/purchase', 'PaymentsController@purchase');
 
-//
-//
+//Category
 Route::get('category/{name}', 'CategoriesController@show');
+
+// Authentication 
+Route::auth();
+
+Route::get('/home', 'HomeController@index');

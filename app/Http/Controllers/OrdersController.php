@@ -116,16 +116,20 @@ class OrdersController extends Controller
             return redirect('/');
         }
 
-        $order = Order::create();
-        $order->save();
+        //Need refactor **********************************************************************
+        //
         $productId = $request->session()->get('product');
         $quantity = $request->session()->get('quantity');
         $product = Product::find($productId);
         $product->bought += $quantity;
         $product->save();
+        $order = Order::create();
+        $order->save();
+        $order->create();
         $order->products()->sync([$productId]);
         $order->products->first()->pivot->quantity = $quantity;
         $order->products->first()->pivot->save();
+        return redirect('/');
         // redirec with flsh messaage !!!!!!
     }
     
@@ -144,6 +148,19 @@ class OrdersController extends Controller
         return view( "orders.checkout", ['products' => $products] );
 
     }
+
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function flushOrder(Request $request)
+    {
+        $this->cleanSession($request);
+        return redirect('/');
+    }
+    
     
     /**
      * undocumented function

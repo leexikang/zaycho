@@ -17,23 +17,31 @@ class OrderTest extends TestCase
      */
     public function test_it_checkout()
     {
-        $products = $this->createProductFixture()->lists('id')->toArray();
-        $order = TestDummy::create('App\Order', ['id' => '1']);
-        $order->products()->sync($products);
-
-        $this->visit("orders/" . $order->id . "/checkout")
-            ->seeInDatabase('deliveries', ['ship' => '0'])
-            ->see( $order->products->get(1)->name );
-
+    
     }
 
     public function test_it_redirect_when_no_product_session(){
         $this->visit('orders/add')
             ->seePageIs('/');
     }
-    private function createProductFixture(){
 
-        return TestDummy::times(5)->create('App\Product');
+    public function test_it_remove_the_order(){
+
+        $this->withSession(['product' => 1, 'quantity', 11])
+            ->visit('orders/remove')
+            ->seePageIs('/');
+
+    }
+
+
+    private function createFixture(){
+
+        $product = TestDummy::create('App\Product');
+        $order = TestDummy::create('App\Order');
+        $order->products()->sync([$product->id]);
+        $order->products->first()->pivot->quantity = $quantity;
+        $order->products->first()->pivot->save();
+        return $order;
 
     }
 

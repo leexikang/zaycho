@@ -13,7 +13,7 @@ class AddSupplierIdToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer('supplier_id')->unsigned()->default("");
+            $table->integer('supplier_id')->unsigned()->nullable();
             $table->foreign('supplier_id')
                 ->references('id')
                 ->on('suppliers')

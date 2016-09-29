@@ -21,7 +21,7 @@
                 </div>
                 <input type="hidden" name="product" id="product" value="{!! $product->id !!}">
                 <div class="columns small-9">
-                    <input type="text" name="quantity" id="quantity">
+                    <input type="text" name="quantity" id="quantity" value="1">
                 </div>
 
             </div>
