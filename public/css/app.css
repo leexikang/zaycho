@@ -3511,4 +3511,8 @@ table.hover tr:nth-of-type(even):hover {
 .checkout_header {
   background-color: #FAFAFA; }
 
+.error {
+  color: red;
+  font-size: 0.6em; }
+
 /*# sourceMappingURL=app.css.map */
