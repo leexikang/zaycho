@@ -19,6 +19,11 @@ class Order extends Model
             ->withTimestamps();
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
     /**
      * undocumented function
      *

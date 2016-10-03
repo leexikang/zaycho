@@ -17,8 +17,10 @@ Route::get('/', function () {
 });
 
 Route::resource('products', 'ProductsController');
+Route::get('user/orders','OrdersController@userOrders');
 //Order Route
 //
+
 Route::group(['middleware' => ['web']], function(){
 Route::post('orders/confirm', 'OrdersController@confirm');
 Route::get('orders/add', 'OrdersController@add');
@@ -33,7 +35,9 @@ Route::get('orders/{id}/purchase', 'PaymentsController@purchase');
 //Category
 Route::get('category/{name}', 'CategoriesController@show');
 
+//Page
+Route::get('orders', 'PagesController@getOrders');
+
 // Authentication 
 Route::auth();
-
 Route::get('/home', 'HomeController@index');

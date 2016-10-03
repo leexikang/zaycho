@@ -33,7 +33,7 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
         'bought' => $faker->biasedNumberBetween(50, 300),
         'due_date' => $faker->dateTimeThisYear('December')->format('Y-m-d'),
         'category_id' => $faker->numberBetween(1,5),
-        'supplier_id' => $faker->numberBetween(1,10)
+        'supplier_id' => $faker->numberBetween(1,10),
     ];
 });
 
@@ -42,6 +42,7 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
 $factory->define(App\Order::class, function (Faker\Generator $faker) {
     return [
         'archive' => $faker->boolean(3),
+        'user_id' => $faker->numberBetween(1, 10)
     ];
 });
 

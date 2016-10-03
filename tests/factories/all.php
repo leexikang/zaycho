@@ -1,4 +1,14 @@
 <?php
+
+$factory('App\User', [ 
+    'name' => $faker->name,
+    'email' => $faker->safeEmail,
+    'password' => bcrypt("password"),
+    'address' => $faker->streetAddress,
+    'remember_token' => str_random(10),
+]);
+
+
 $factory('App\Product', [
     'name' => $faker->randomNumber(3),
     'price' => $faker->numberBetween(100, 10000),

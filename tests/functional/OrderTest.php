@@ -33,13 +33,23 @@ class OrderTest extends TestCase
 
     }
 
+    public function test_it_show_user_orders(){
+
+        $order = $this->createFixture();
+
+        $this->actingAs($order->user)
+            ->visit('/user/orders')
+            ->see($order->products->first()->name);
+
+    }
 
     private function createFixture(){
 
+        $user = Factory(App\User::class)->create();
         $product = TestDummy::create('App\Product');
-        $order = TestDummy::create('App\Order');
+        $order = TestDummy::create('App\Order', ['user_id' => $user->id]);
         $order->products()->sync([$product->id]);
-        $order->products->first()->pivot->quantity = $quantity;
+        $order->products->first()->pivot->quantity = 1;
         $order->products->first()->pivot->save();
         return $order;
 

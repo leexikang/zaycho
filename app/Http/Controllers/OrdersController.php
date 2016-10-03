@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Order;
 use App\Product;
+use Illuminate\Support\Facades\Auth;
 
 class OrdersController extends Controller
 {
@@ -160,6 +161,20 @@ class OrdersController extends Controller
         $this->cleanSession($request);
         return redirect('/');
     }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function userOrders(Request $request)
+    {
+        $orders = Order::all();
+        return view('orders.userorders', [ 'orders' => $orders ]);
+        $orders = Auth::user()->orders;
+        return $orders;
+    }
+    
     
     
     /**
