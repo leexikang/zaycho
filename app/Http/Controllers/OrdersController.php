@@ -169,8 +169,11 @@ class OrdersController extends Controller
      */
     public function userOrders(Request $request)
     {
+        $sends = Order::where(['archive' => true])->get();
         $orders = Order::all();
-        return view('orders.userorders', [ 'orders' => $orders ]);
+        return view('orders.userorders', [ 'orders' => $orders ,
+            'sends' => $sends
+        ]);
         $orders = Auth::user()->orders;
         return $orders;
     }
