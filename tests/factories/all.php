@@ -21,6 +21,7 @@ $factory('App\Product', [
 
 $factory('App\Order', [
     'archive' => $faker->boolean(3),
+    'valid' => $faker->boolean(3),
 ]);
 
 

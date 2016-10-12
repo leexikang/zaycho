@@ -19,20 +19,24 @@
 <div class="top-bar-right">
         <div id="responsive-menu">
             <div class="top-bar-left">
-                @if(Auth::user())
-                <ul class="dropdown menu" data-dropdown-menu>
+               @if(Auth::user()) 
+                   <ul class="menu">
+                       <li> <span class="alert badge">12 </span> </li>
+                   </ul>
+
+                   <ul class="dropdown menu" data-dropdown-menu>
                     <li>
-                        <a href="#">{!! Auth::user()->name !!}</a>
+                        <a href="#">{!! Auth::user()->name !!} </a>
                         <ul class="menu vertical">
                             <li><a href="#">One</a></li>
-                            <li><a href="#">Orders</a></li>
+                            <li><a href="{!! url('user/orders') !!}">Orders</a></li>
                             <li><a href="#">Logout</a></li>
                         </ul>
                     </li>
                     </ul>
-                @else
+                                   @else
                     <ul class="menu">
-                        <li class="menuitem"> <a href="#" class="button"> Login </a></li>
+                        <li class="menuitem"> <a href="{!! url('login') !!}" class="button"> Login </a></li>
                     </ul>
                 @endif
 
