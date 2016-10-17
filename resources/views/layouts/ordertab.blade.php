@@ -11,20 +11,24 @@
                     </div>
 
                     @if( $order->valid )
-                    <div class="small-2 columns">
-                        <br/>
-                        <p> <span class="alert label float-right"> Due </span> </p>
-                    </div>
-                @elseif( !$order->archive )
+                        <div class="small-2 columns">
+                            <br/>
+                            <p> <span class="alert label float-right"> Due </span> </p>
+                        </div>
+                    @elseif( !$order->archive )
                         <div class="small-2 columns">
                             <br/>
                             <p> <span class="secondary label float-right"> Pending </span> </p>
+                        </div>
+                    @else
+                        <div class="small-2 columns">
+                            <br/>
+                            <p> <span class="success label float-right"> Expired </span> </p>
                         </div>
                     @endif
 
                 </div>
             </div>
-
         </div>
         <br/>
         <div class="row">
@@ -42,15 +46,17 @@
                     <div class="media-object-section">
 
                         <h5> 
-                            <a href="{!! route('products.show', ['id' => $order->products->first()->id]) !!}">
-                                {!! $order->products->first()->name !!} 
+
+                            <a href="{!! route('products.show', ['id' => $order->products->first()['id']]) !!}">
+                                <a href="#">
+                                {!! $order->products->first()['name'] !!} 
                             </a>
                         </h5>
                         <p> <strong> Total: </strong> 
-                        {!! $order->products->first()->price * $order->products->first()->pivot->quantity !!} Kyats
+                        {!! $order->products->first()['price'] * $order->products->first()['pivot']['quantity'] !!} Kyats
                         </p>
                         @if($order->valid)
-                        <p> <button class="small button alert expanded "> checkout </button> </p>
+                            <p> <a class="small button alert expanded " href="{!! route('checkout', ['id' => $order->id]) !!}"> checkout </a> </p>
                         @endif
 
                     </div>

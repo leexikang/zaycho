@@ -34,10 +34,30 @@ Route::get('orders/{id}/purchase', 'PaymentsController@purchase');
 
 //Category
 Route::get('category/{name}', 'CategoriesController@show');
-
+//Payment
+Route::get('order/{id}/payment', ['as' => 'purchase', 
+    'uses' => 'PaymentsController@purchase'
+]);
 //Page
 Route::get('orders', 'PagesController@getOrders');
 
 // Authentication 
 Route::auth();
 Route::get('/home', 'HomeController@index');
+
+
+// Admin Authentication
+
+Route::group(['middleware' => ['web']], function () {
+    //Login Routes...
+    Route::get('/staff/login','StaffAuth\AuthController@showLoginForm');
+    Route::post('/staff/login','StaffAuth\AuthController@login');
+    Route::get('/staff/logout','StaffAUth\AuthController@logout');
+
+    // Registration Routes...
+    Route::get('staff/register', 'StaffAuth\AuthController@showRegistrationForm');
+    Route::post('staff/register', 'StaffAuth\AuthController@register');
+
+    Route::get('/staff', 'AdminController@index');
+
+});  

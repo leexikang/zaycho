@@ -33,5 +33,10 @@ class Order extends Model
     {
         return $this->hasOne('App\Delivery');
     }
+
+    public function payment()
+    {
+        return $this->hasOne('App\Payment');
+    }
     
 }

@@ -144,11 +144,12 @@ class OrdersController extends Controller
     public function checkout( Request $request, $id )
     {
         $order = Order::find($id);
-        $products = $order->products;
-        $order->delivery()->create(['ship' => false, 'arrive' => false]);
-        return view( "orders.checkout", ['products' => $products] );
+        $product = $order->products->first();
+        return view( "orders.checkout", ['product' => $product] );
 
     }
+
+    
 
 
     /**
@@ -160,7 +161,7 @@ class OrdersController extends Controller
     {
         $this->cleanSession($request);
         return redirect('/');
-    }
+    } 
 
     /**
      * undocumented function
@@ -174,8 +175,6 @@ class OrdersController extends Controller
         return view('orders.userorders', [ 'orders' => $orders ,
             'sends' => $sends
         ]);
-        $orders = Auth::user()->orders;
-        return $orders;
     }
     
     

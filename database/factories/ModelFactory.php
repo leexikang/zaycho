@@ -57,4 +57,15 @@ $factory->define(App\Supplier::class, function (Faker\Generator $faker) {
     ];
 });
 
+// staff Table
+//
+$factory->define(App\Staff::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'email' => $faker->safeEmail,
+        'password' => bcrypt("password"),
+        'remember_token' => str_random(10),
+    ];
+});
+
 
