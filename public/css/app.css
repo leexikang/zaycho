@@ -3520,4 +3520,24 @@ table.hover tr:nth-of-type(even):hover {
   border: 0.5px solid #DDD;
   border-radius: 3px; }
 
+.staff-nav {
+  background-color: #00BCD4;
+  height: 100vh; }
+
+.staff-nav a {
+  color: white; }
+
+.nav-title {
+  color: #FAFAFA; }
+
+.body-color {
+  background-color: #FAFAFA; }
+
+.staff-nav li:hover {
+  background-color: #e91e63; }
+
+.staff-nav li {
+  margin-bottom: .5em;
+  margin-left: 1em; }
+
 /*# sourceMappingURL=app.css.map */

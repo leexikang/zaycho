@@ -16,4 +16,8 @@ class Payment extends Model
     public function user(){
         return $this->belongsTo('App\User');
     }
+
+    public function scopeNew(){
+        return $this->where('pay', false);
+    }
 }

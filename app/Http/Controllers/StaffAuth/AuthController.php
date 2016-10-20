@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\StaffAuth;
 
-use App\User;
+use Auth;
 use Validator;
+use App\Staff;
+use Illuminate\Http\Request;
+use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -51,7 +54,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:staff',
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -64,7 +67,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return Staff::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
@@ -82,5 +85,13 @@ class AuthController extends Controller
     public function showRegistrationForm()
     {
         return view('staff.auth.register');
+    }
+
+    public function authenticate(Request $request)
+    {
+        if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')] ))
+        {
+            return redirect("login");
+        }
     }
 }

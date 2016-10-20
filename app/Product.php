@@ -60,6 +60,12 @@ class Product extends Model
     }
 
     /**
+     * Caculate Total price for order
+     *
+     * @return void
+     */
+
+    /**
      * The orders the belong to the products 
      * 
      * @return 

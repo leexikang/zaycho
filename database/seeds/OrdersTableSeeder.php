@@ -13,7 +13,10 @@ class OrdersTableSeeder extends Seeder
     {
 
         factory(App\Order::class, 20)->create()->each(function($u) {
+            $id = $u->user_id;
+            $u->payment()->save(factory('App\Payment')->make(['user_id' => $id]));
             $u->products()->save(App\Product::all()->random());
+            $u->delivery()->save(factory('App\Delivery')->make());
         });
     }
 }

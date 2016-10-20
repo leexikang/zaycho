@@ -16,7 +16,7 @@ class Delivery extends Model
      */
     public function order()
     {
-        $this->hasOne('App\Order');
+        return $this->belongsTo('App\Order');
     }
     
 }

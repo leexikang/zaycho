@@ -19,6 +19,10 @@ class Order extends Model
             ->withTimestamps();
     }
 
+    public function total()
+    {
+        return $this->products->first()->price * $this->products->first()->pivot->quantity;
+    }
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -38,5 +42,9 @@ class Order extends Model
     {
         return $this->hasOne('App\Payment');
     }
-    
+
+    public function scopeNew()
+    {
+        return $this->where(['valid' => true, 'archive' => false]);
+    }
 }

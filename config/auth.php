@@ -46,7 +46,7 @@ return [
 
      'staff' => [
             'driver' => 'session',
-            'provider' => 'staffs', 
+            'provider' => 'staff', 
         ],
 
     'api' => [
@@ -78,7 +78,7 @@ return [
             'model' => App\User::class,
         ],
 
-        'staffs' => [
+        'staff' => [
             'driver' => 'eloquent',
             'model' => App\Staff::class,
         ],
@@ -116,9 +116,9 @@ return [
             'expire' => 60,
         ],
 
-        'staffs' => [
-            'provider' => 'staffs',
-            'email' => 'auth.emails.password',
+        'staff' => [
+            'provider' => 'staff',
+            'email' => 'staff.emails.password',
             'table' => 'password_resets',
             'expire' => 60,
         ],

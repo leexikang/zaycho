@@ -47,9 +47,25 @@ $factory->define(App\Order::class, function (Faker\Generator $faker) {
     ];
 });
 
-
-// Supplier Table Factory
+//Delivery Table Factory
 //
+$factory->define(App\Delivery::class, function (Faker\Generator $faker) {
+    return [
+        'ship' => false, 
+        'arrive' => false, 
+    ];
+});
+
+//
+// Payment Table Factory
+//
+$factory->define(App\Payment::class, function (Faker\Generator $faker) {
+    return [
+        'pay' => false, 
+    ];
+});
+
+
 $factory->define(App\Supplier::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->company(),

@@ -8,15 +8,16 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Payment;
+
+use App\Order;
+
+
 class StaffsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('staff');
     }
 
-    public function index()
-    {
-        return "This is admin dashboard";
-    }
+
 }
