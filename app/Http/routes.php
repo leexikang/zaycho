@@ -65,6 +65,8 @@ Route::get('/staff', 'AdminstrationController@index');
 Route::group(['prefix' => 'staff'], function(){
 
     Route::get('orders', 'AdminstrationController@orders');
+    Route::get('payments', 'AdminstrationController@payments');
+    Route::get('deliveries', 'AdminstrationController@deliveries');
 
 });
 

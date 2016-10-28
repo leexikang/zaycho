@@ -23,7 +23,9 @@ class Order extends Model
     {
         return $this->products->first()->price * $this->products->first()->pivot->quantity;
     }
-    public function user()
+
+
+   public function user()
     {
         return $this->belongsTo('App\User');
     }
@@ -47,4 +49,15 @@ class Order extends Model
     {
         return $this->where(['valid' => true, 'archive' => false]);
     }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function archive()
+    {
+        return $this->payment->pay && $this->delivery->arrive;
+    }
+    
 }

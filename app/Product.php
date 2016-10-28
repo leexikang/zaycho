@@ -15,7 +15,7 @@ class Product extends Model
      *
      * @return Boolean
      */
-    private function isBoughtExceed()
+    private function isSaleExceed()
     {
         if ($this->bought >= $this->signup ) {
 
@@ -54,9 +54,9 @@ class Product extends Model
      * @return boolean
      */
     
-    public function canBought()
+    public function canBuy()
     {
-        return $this->isBoughtExceed() && !$this->isDue();
+        return $this->isSaleExceed() && !$this->isDue();
     }
 
     /**
@@ -65,6 +65,8 @@ class Product extends Model
      * @return void
      */
 
+    public function state(){
+    }
     /**
      * The orders the belong to the products 
      * 
@@ -106,5 +108,10 @@ class Product extends Model
         return $this->due_date->lt(Carbon::now());
     }
 
+
+    public function scopeDue()
+    {
+        return $this->where('due_date', '<', Carbon::now());
+    }
     
 }
