@@ -4,7 +4,7 @@
     <br>
     <div class="row">
         <div class="columns large-6 medium-6">
-            <img class="thumbnail" src="/img/650x450.png">
+        <img class="thumbnail" src="/{!! $product->photos->where('main', 1)->first()->path !!}">
         </div>
         <div class="columns large-5 medium-6">
 
@@ -37,5 +37,20 @@
             <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Tab 1</a></li>
             <li class="tabs-title"><a href="#panel2">Tab 2</a></li>
         </ul>
+
+        <div class="tabs-content" data-tabs-content="example-tabs">
+            <div class="tabs-panel is-active" id="panel1">
+                <div class="row">
+                    <div class="small-8 small-centered columns">
+                        @foreach( $product->photos as $photo )
+                            <img class="thumbnail center" src="/{!! $photo->path !!}">
+                    @endforeach
+
+                    </div>
+                </div>
+            </div>
+            <div class="tabs-panel" id="panel2">
+            </div>
+        </div>
     </div>
 @endsection

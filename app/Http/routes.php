@@ -16,7 +16,11 @@ Route::get('/', function () {
     return "hello";
 });
 
+Route::get('products/{id}/photos', 'ProductsController@uploadPhoto');
+Route::post('products/{id}/photos', 'ProductsController@addPhoto');
+Route::post('products/{id}/mainphoto', 'ProductsController@addMainPhoto');
 Route::resource('products', 'ProductsController');
+
 Route::get('user/orders','OrdersController@userOrders');
 Route::resource('orders', 'OrdersController');
 //Order Route

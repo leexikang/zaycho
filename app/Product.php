@@ -1,7 +1,8 @@
 <?php
 
 namespace App;
-
+use Image;
+use App\Photo;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -83,6 +84,17 @@ class Product extends Model
      *
      * @return void
      */
+    public function photos()
+    {
+        return $this->hasMany('App\Photo');
+    }
+    
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
     public function category()
     {
         return $this->belongsTo('App\Category');
@@ -113,5 +125,14 @@ class Product extends Model
     {
         return $this->where('due_date', '<', Carbon::now());
     }
+
+    public function addPhoto(Photo $photo, $main){
+        if($main){
+            $photo->main = true;
+            return $this->photos()->save($photo)->createThumbnail();
+        }
+            return $this->photos()->save($photo);
+    }
+
     
 }

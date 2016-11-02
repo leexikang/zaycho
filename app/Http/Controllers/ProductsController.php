@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-
+use Image;
 use App\Product;
+use App\Photo;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $products = Product::latest()->get();
         return view("products.index", ['products' => $products]);
@@ -107,5 +108,41 @@ class ProductsController extends Controller
         //
     }
 
+
+    //
+    //
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function addPhoto($id, Request $request)
+    {
+        $product = Product::find($id);
+        $this->processPhotos($product, $request->file('photos'));
+        return 'Done';
+    }
+
+    public function uploadPhoto($id, Request $request){
+        $product = Product::findOrFail($id);
+        return view('products.uploadPhoto', ['product' => $product]);
+    }
+
+    public function addMainPhoto($id, Request $request){
+
+        $product = Product::find($id);
+        $this->processPhotos($product, $request->file('mainPhoto'), true);
+        return 'Done';
+    }
+
+    private function processPhotos($product, $photos, $main = false)
+    {
+        $photo = Photo::fromForm($photos);
+        $product->addPhoto($photo, $main);
+    
+    }
+
+
+    
 }
     

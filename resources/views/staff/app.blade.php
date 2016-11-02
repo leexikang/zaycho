@@ -17,6 +17,7 @@
 
     </body>
     <script type="text/javascript" src="/js/all.js"></script>
+    <script type="text/javascript" src="/js/dropzone.js"></script>
 </html>
 
 <script type="text/javascript">

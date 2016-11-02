@@ -16,7 +16,7 @@
                     <div class="media-object">
                         <div class="media-object-section">
                             <div class="thumbnail">
-                                <img src="//placehold.it/100x100">
+                            <img src="/{!! $product->photos->where('main', 1)->first()->thumbnail_path !!}">
                             </div>
                         </div>
                         <div class="media-object-section">

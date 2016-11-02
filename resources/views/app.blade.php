@@ -3,6 +3,8 @@
     <head>
         <title></title>
         <link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" href="/css/dropzone.css">
+        <script type="text/javascript" src="/js/dropzone.js"></script>
     </head>
 
     <body>
@@ -14,5 +16,19 @@
 
 <script type="text/javascript">
 	$(document).foundation();
+
+        Dropzone.options.mainPhoto = {
+            paramName: 'mainPhoto',
+            maxFiles: 1,
+            maxFileSize: 2,
+            acceptedFiles: '.jpg, .jpeg, .png, .bmp',
+        };
+        
+        Dropzone.options.subPhotos = {
+            paramName: 'photos',
+            maxFileSize: 2,
+            acceptedFiles: '.jpg, .jpeg, .png, .bmp'
+
+            }
 </script>
 
