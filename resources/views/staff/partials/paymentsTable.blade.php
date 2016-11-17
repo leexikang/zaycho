@@ -15,18 +15,17 @@
         @foreach( $payments as $payment )
             <tr>
                 <td> {!! $payment->id !!} </td>
-                <td> {!! $payment->user->name !!} </td>
-                <td> {!! $payment->user->address !!} </td>
+                <td> {!! $payment->order->user->name !!} </td>
+                <td> {!! $payment->order->user->address !!} </td>
                 <td> {!! $payment->order->id !!} </td>
                 <td> {!! $payment->created_at->toFormattedDateString() !!} </td>
                 @if( !$payment->pay )
-                    <td> <span class="alert label"> Unpay</span> </td>
+                    <td> <a class="alert tiny button" href="{!! url('staff/payment/'. $payment->id .'/pay') !!}"> Paid </a> </td>
                 @else
-                    <td> <span class="secondary label"> Paied </span> </td>
+                    <td> <span class="success label"> Paid </span> </td>
                 @endif
 
             </tr>
         @endforeach
     </tbody>
 </table>
-

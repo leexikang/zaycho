@@ -14,6 +14,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('checkout')->default(0);
             $table->boolean('archive')->default(0);
             $table->timestamps();
         });

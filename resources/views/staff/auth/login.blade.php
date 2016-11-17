@@ -18,6 +18,7 @@
 
             <div class="row">
             <div class="small-8 small-centered columns">
+                <h4 class="subheader"> Admin Login </h4>
 
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/staff/login') }}">
 
@@ -70,6 +71,12 @@
                                 <button type="submit" class="expanded hollow button">
                                     <i class="fa fa-btn fa-sign-in"></i> Login
                                 </button>
+
+                                @if (Session::has('fail') )
+                                    <span class="error">
+                                        <small> {{ Session::get('fail') }} </small>
+                                    </span>
+                                @endif
 
                             </div>
                         </div>

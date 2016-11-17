@@ -7,8 +7,8 @@
             <div class="row">
                 <div class="small-4 columns">
                     <span class="subheader"> To: </span>
-                    <h5> MIN SAN </h5>
-                    <span class="subheader"> Shanchaug Street, Suange </span>
+                    <h5> {!! $order->user->name !!}</h5>
+                    <span class="subheader"> {!! $order->user->address !!}</span>
                 </div>
                 <div class="small-8 columns">
 
@@ -49,7 +49,7 @@
                     <tr>
                         <td colspan='2'></td>
                         <td> Total: </td>
-                        <td> 1200 kyats </td>
+                        <td> {!! $product->price * $quantity !!} Kyats </td>
                     </tr>
                 </tbody>
             </table>
@@ -68,6 +68,8 @@
                 
                 </p>
             </div>
+        <br/> <a href="/"> Go Back </a>
         </div>
     </div>
+
 @endsection

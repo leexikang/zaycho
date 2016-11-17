@@ -17,6 +17,7 @@ class OrdersTableSeeder extends Seeder
             $u->payment()->save(factory('App\Payment')->make(['user_id' => $id]));
             $u->products()->save(App\Product::all()->random());
             $u->delivery()->save(factory('App\Delivery')->make());
+            $u->invoice()->save(factory('App\Invoice')->make());
         });
     }
 }

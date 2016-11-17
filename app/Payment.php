@@ -20,4 +20,13 @@ class Payment extends Model
     public function scopeNew(){
         return $this->where('pay', false);
     }
+
+    public function scopePaid(){
+        return $this->where('pay', true);
+    }
+
+    public function scopeUnpay(){
+        return $this->where('pay', false);
+    }
+
 }

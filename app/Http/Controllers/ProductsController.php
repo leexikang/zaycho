@@ -5,22 +5,45 @@ namespace App\Http\Controllers;
 use Image;
 use App\Product;
 use App\Photo;
+use App\Category;
+use App\Supplier;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
+
+    public function __construct(){
+
+        $this->middleware('staff.auth', ['except' => [
+            'index',
+            'show',
+            'search'
+        ]]);
+
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    
+       
     public function index(Request $request)
     {
         $products = Product::latest()->get();
         return view("products.index", ['products' => $products]);
     }
 
+
+    public function search(Request $request)
+    {
+        $search = "%" . $request->search . "%";
+        return $products = Product::search($search)->get();
+        return view("products.index", ['products' => $products]);
+    }
+    
     /**
      * Confirm the products purchase
      *
@@ -44,7 +67,24 @@ class ProductsController extends Controller
      */
     public function create()
     {
-       return view('products.create'); 
+              $extracted = $this->extractCateogryAndSupplier();
+              return view('products.create', $extracted); 
+    }
+
+    private function extractCateogryAndSupplier(){
+
+        $categories = $this->convertToArray(Category::all());
+        $suppliers = $this->convertToArray(Supplier::all());
+        return ['categories' => $categories, 'suppliers' => $suppliers];
+    }
+
+    private function convertToArray($arrs){
+
+        $array= [];
+        foreach($arrs as $arr){
+            $array[$arr->id]  = $arr->name;
+        }
+        return $array;
     }
 
     /**
@@ -56,7 +96,7 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $product = Product::create($request->all());
-        return redirect()->route('products.show', $product->id);
+        return redirect()->route('product.photo', $product->id);
     }
 
     /**
@@ -79,8 +119,9 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
-        return view('products.edit', compact('product'));
+        $extracted = $this->extractCateogryAndSupplier();
+        $compiledValue = array_merge(['product' => Product::find($id)], $extracted);
+        return view('products.edit', $compiledValue );
     }
 
     /**
@@ -94,7 +135,7 @@ class ProductsController extends Controller
     {
         $product = Product::find($id);
         $product->update($request->all());
-        return $product;
+        return redirect('/products/' . $product->id);
     }
 
     /**
@@ -105,7 +146,8 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::destroy($id);
+        return redirect()->back();
     }
 
 

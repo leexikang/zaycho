@@ -20,11 +20,12 @@ class PaymentsController extends Controller
     public function purchase(Request $request, $orderId)
     {
         $order = Order::find($orderId);
+        $order->checkout = true;
+        $order->save();
         $order->delivery()->create(['ship' => false, 'arrive' => false]);
 
         Payment::create([
             'order_id' => $orderId,
-            'user_id' => 1
         ]);
         // user inforamtion 
         $account = ["number" => "121312",

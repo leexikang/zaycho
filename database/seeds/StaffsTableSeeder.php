@@ -11,6 +11,8 @@ class StaffsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Staff::class)->create(['name' => 'Min San', 'email' => 'min@example.com']); 
+
+        factory(App\Staff::class)->create(['name' => 'Min San', 'email' => 'min@gmail.com']); 
+        factory(App\Staff::class, 10)->create();
     }
 }

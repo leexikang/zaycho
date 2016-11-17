@@ -16,7 +16,14 @@
                     <td> {!! $delivery->order->user->name !!} </td>
                     <td> {!! $delivery->order->user->address !!}</td>
                     <td> {!! $delivery->created_at->toFormattedDateString() !!} </td>
-                    <td> <a href="#" class="warning tiny expanded button"> Ship </a> </td>
+                    @if( !$delivery->ship && !$delivery->arrive )
+                    <td> <a href="{!! url('staff/delivery/' . $delivery->id . '/ship') !!}" class="warning tiny expanded button"> Ship </a> </td>
+                @elseif( $delivery->ship && !$delivery->arrive )
+
+                    <td> <a href="{!! url('staff/delivery/' . $delivery->id . '/arrive') !!}" class="success tiny expanded button"> arrive </a> </td>
+                @else
+                    <td> <span class="alert label large"> Arrived </span> </td>
+                @endif
                 </tr>
             @endforeach
         </tbody>

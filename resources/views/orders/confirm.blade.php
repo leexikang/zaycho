@@ -31,14 +31,14 @@
                 </div>
                 <div class="small-2 columns">
                     <br/>
-                    <a href="{!! url('orders/remove') !!}" class="alert small hollow button"> remove </a>
+                    <a href="{!! url('order/remove') !!}" class="alert small hollow button"> remove </a>
                 </div>
             </div>
 
             <div class="row">
                 <div class="small-4 small-offset-8 columns">
                     <br/>
-                    <a href="{!! url('orders/add') !!}" class="button"> Confirm </a>
+                    <a href="{!! url('order/add') !!}" class="button"> Confirm </a>
                     <a href="{!! url('/products') !!}" class="expaneded button"> Back to Shopping</a>
                 </div>
             </div>

@@ -10,6 +10,9 @@
     <body>
         @include('partials.nav')
         @yield('content')
+
+
+        @include('partials.footer')
     </body>
     <script type="text/javascript" src="/js/all.js"></script>
 </html>

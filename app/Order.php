@@ -4,9 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use DB;
+
 class Order extends Model
 {
-    protected $fillable = ['ship', 'created_at', 'updated_at'];
+    protected $fillable = ['ship', 'created_at', 'updated_at', 'user_id'];
     /**
      * undocumented function
      *
@@ -19,11 +21,21 @@ class Order extends Model
             ->withTimestamps();
     }
 
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    
+
     public function total()
     {
         return $this->products->first()->price * $this->products->first()->pivot->quantity;
     }
 
+    public function checkout(){
+        return $this->checkout;
+    }
 
    public function user()
     {
@@ -45,19 +57,25 @@ class Order extends Model
         return $this->hasOne('App\Payment');
     }
 
+    public function invoice()
+    {
+        return $this->hasOne('App\Invoice');
+    }
+
     public function scopeNew()
     {
         return $this->where(['valid' => true, 'archive' => false]);
     }
+
 
     /**
      * undocumented function
      *
      * @return void
      */
-    public function archive()
-    {
-        return $this->payment->pay && $this->delivery->arrive;
-    }
+/*    public function archive()*/
+    //{
+        //return $this->payment->pay && $this->delivery->arrive;
+    //}
     
 }

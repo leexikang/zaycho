@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Order;
 use App\Product;
+use App\Invoice;
 use Illuminate\Support\Facades\Auth;
 
 class OrdersController extends Controller
@@ -28,7 +29,7 @@ class OrdersController extends Controller
      */
     public function create()
     {
-        //chec
+        return view('orders.create');
     }
 
     /**
@@ -39,7 +40,13 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order = Order::create([
+            'valid' => $request->valid,
+            'archive' => $request->archive,
+            'user_id' => $request->user_id
+        ]);
+        $order->save();
+        return redirect('staff/orders');
     }
 
     /**
@@ -50,7 +57,7 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -61,7 +68,9 @@ class OrdersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Order::find($id);
+        return view('orders.edit', ['order' => $order]);
+
     }
 
     /**
@@ -73,7 +82,11 @@ class OrdersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::find($id);
+        $order->archive = $request->archive;
+        $order->valid = $request->valid;
+        $order->user_id = $request->user_id;
+        return redirect('/staff/orders');
     }
 
     /**
@@ -113,24 +126,24 @@ class OrdersController extends Controller
      */
     public function add(Request $request)
     {
+
         if( !$request->session()->has('product') || !$request->session()->has('quantity') ){
             return redirect('/');
         }
 
         //Need refactor **********************************************************************
-        //
+        $userId = Auth::user()->id;
         $productId = $request->session()->get('product');
         $quantity = $request->session()->get('quantity');
         $product = Product::find($productId);
         $product->bought += $quantity;
         $product->save();
-        $order = Order::create();
+        $order = Order::create(['user_id' => $userId]);
         $order->save();
-        $order->create();
         $order->products()->sync([$productId]);
         $order->products->first()->pivot->quantity = $quantity;
         $order->products->first()->pivot->save();
-        return redirect('/');
+        return redirect('/user/orders');
         // redirec with flsh messaage !!!!!!
     }
     
@@ -144,12 +157,27 @@ class OrdersController extends Controller
     public function checkout( Request $request, $id )
     {
         $order = Order::find($id);
-        $product = $order->products->first();
-        return view( "orders.checkout", ['product' => $product] );
+        return view( "orders.checkout", ['order' => $order] );
 
     }
 
-    
+
+    public function editAddress($id)
+    {
+        $order = Order::find($id);
+        return view('orders.updateAddress', ['order' => $order]);
+
+    }
+    public function updateAddress(Request $request, $id)
+    {
+        $order = Order::find($id);
+        $order->user->address = $request->address;
+        $order->user->save();
+
+        return redirect()
+            ->route('purchase', ['id' => $order->id]);
+    }
+
 
 
     /**
@@ -170,11 +198,14 @@ class OrdersController extends Controller
      */
     public function userOrders(Request $request)
     {
-        $sends = Order::where(['archive' => true])->get();
-        $orders = Order::all();
-        return view('orders.userorders', [ 'orders' => $orders ,
-            'sends' => $sends
-        ]);
+    //    $userId = Auth::user()->id;
+        //$sends = Order::where(['archive' => true, 'user_id' => $userId])->get();
+        //return $orders = Order::where(['archive' => false, 'user_id' => $userId])->with('products')->get()->sortByDesc('created_at');
+        //$orders = Order::where(['archive' => false, 'user_id' => $userId])->with('products')->get()->sortByDesc('created_at');
+        $orders = Order::with('user', 'products', 'invoice', 'delivery')
+            ->where(['user_id' => Auth::user()->id])
+            ->orderBy('created_at', 'desc')->get();
+        return view('orders.userorders', [ 'orders' => $orders]);
     }
     
     
@@ -201,3 +232,4 @@ class OrdersController extends Controller
 
 }
 
+        return redirect('staff/orders');

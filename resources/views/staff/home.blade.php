@@ -1,7 +1,6 @@
 @extends('staff.app')
 @section('content')
         <div class="small-10 columns">
-
             <div class="row">
                 @include('staff.partials.topOrder')
             </div>

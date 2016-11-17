@@ -13,11 +13,11 @@ class RedirectIfNotStaff
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = 'staff' )
+    public function handle($request, Closure $next )
     {
-        if(!Auth::guard($guard)->check())
+       if(! $request->session()->has('admin'))
         {
-            return redirect('/');
+            return redirect('/staff/login');
         }
         return $next($request);
     }

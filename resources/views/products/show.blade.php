@@ -4,7 +4,10 @@
     <br>
     <div class="row">
         <div class="columns large-6 medium-6">
-        <img class="thumbnail" src="/{!! $product->photos->where('main', 1)->first()->path !!}">
+        <img class="thumbnail" 
+             width="400"
+             height="300"
+        src="/{!! $product->photos->where('main', 1)->first()->path !!}">
         </div>
         <div class="columns large-5 medium-6">
 
@@ -12,8 +15,9 @@
             <h4> Price: {{ $product->price }}Kyats </h4>
             <p> Minimun Sale: {{ $product->minimun_sale }} </p>
             <p> Bought: {{ $product->bought }} </p>
+            <p> Due Date: {{ $product->due_date->toFormattedDateString() }} </p>
 
-            {!! Form::open(['url' => 'orders/confirm', 'method' => 'post']) !!}
+            {!! Form::open(['url' => 'order/confirm', 'method' => 'GET']) !!}
 
             <div class="row">
                 <div class="columns small-3">
@@ -26,7 +30,11 @@
 
             </div>
             <div class="row">
+                @if($product->expired() )
+                    <input  type="submit" class="button large expanded centered" value="Buy" disabled>
+                @else
                 <input  type="submit" class="button large expanded centered" value="Buy">
+                @endif
             </div>
             {!! Form::close() !!}
         </div>
@@ -34,8 +42,7 @@
 
     <div class="columns row">
         <ul class="tabs" data-tabs id="example-tabs">
-            <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Tab 1</a></li>
-            <li class="tabs-title"><a href="#panel2">Tab 2</a></li>
+            <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Details</a></li>
         </ul>
 
         <div class="tabs-content" data-tabs-content="example-tabs">

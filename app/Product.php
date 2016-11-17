@@ -5,28 +5,14 @@ use Image;
 use App\Photo;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'price', 'minimun_sale', 'bought', 'due_date'];
+    protected $fillable = ['name', 'price', 'minimun_sale', 'bought', 'due_date', 'supplier_id', 'category_id'];
     protected $dates = ['due_date'];
 
-    /**
-     *  Check if bough exceed sale
-     *
-     * @return Boolean
-     */
-    private function isSaleExceed()
-    {
-        if ($this->bought >= $this->signup ) {
-
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
+       /**
      * set due_date attribute
      *
      *
@@ -47,9 +33,19 @@ class Product extends Model
     {
         return new Carbon($date);
     }
-    
-    
-    /**
+
+     /**
+     *  Check if bough exceed sale
+     *
+     * @return Boolean
+     */
+
+   public function isSaleExceed()
+    {
+        return $this->bought >= $this->minimun_sale;
+   }
+
+       /**
      * check if user can bough the product
      *
      * @return boolean
@@ -57,18 +53,38 @@ class Product extends Model
     
     public function canBuy()
     {
-        return $this->isSaleExceed() && !$this->isDue();
+        return $this->isSaleExceed() && $this->isDue();
+
+    }
+    public function due()
+    {
+        return $this->isSaleExceed() && $this->isDue();
+    } 
+
+    public function cannotBuy()
+    {
+        return !$this->isSaleExceed() && !$this->isDue();
+
     }
 
-    /**
-     * Caculate Total price for order
+    public function expired(){
+        return !$this->isSaleExceed() && $this->isDue();
+    }
+
+  /**
+     * Check whether the date is due
      *
-     * @return void
+     * @return boolean
      */
-
-    public function state(){
+    public function isDue()
+    {
+        return $this->due_date->lt(Carbon::now());
     }
-    /**
+
+
+
+
+        /**
      * The orders the belong to the products 
      * 
      * @return 
@@ -79,6 +95,7 @@ class Product extends Model
         return $this->belongsToMany('App\Order', 'order_details');
     }
 
+  
     /**
      * undocumented function
      *
@@ -89,7 +106,6 @@ class Product extends Model
         return $this->hasMany('App\Photo');
     }
     
-
     /**
      * undocumented function
      *
@@ -110,21 +126,47 @@ class Product extends Model
         return $this->belongsTo('App\Supplier');
     }
     
-    /**
-     * Check whether the date is due
-     *
-     * @return boolean
-     */
-    public function isDue()
+    
+    public function scopePending()
     {
-        return $this->due_date->lt(Carbon::now());
+        return $this->where([
+            ['due_date', '>', Carbon::now()],
+            ['minimun_sale', '>', DB::raw('bought')]
+        ]);
+    }
+
+    public function scopeSuccess(){
+
+        return $this->where([ 
+            ['due_date', '<', Carbon::now()],
+            ['minimun_sale', '<', DB::raw('bought')]
+        ]);
+
+    }
+
+    public function scopeFail(){
+
+        return $this->where([ 
+            ['due_date', '<', Carbon::now()],
+            ['minimun_sale', '>', DB::raw('bought')]
+        ]);
+
+    }
+
+    public function scopeLatest(){
+        return $this->where([ 
+            ['due_date', '>', Carbon::now()],
+        ]);
+    }
+
+    public function scopeSearch($query, $val){
+        return $query->where([ 
+            ['name', 'like', $val], 
+            ['due_date', '>', Carbon::now()],
+        ]);
     }
 
 
-    public function scopeDue()
-    {
-        return $this->where('due_date', '<', Carbon::now());
-    }
 
     public function addPhoto(Photo $photo, $main){
         if($main){

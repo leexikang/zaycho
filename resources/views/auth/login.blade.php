@@ -19,6 +19,7 @@
             <div class="row">
             <div class="small-8 small-centered columns">
 
+                <h4 class="subheader"> Login </h4>
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
 
                     {{ csrf_field() }}
@@ -59,7 +60,7 @@
                         </div>
 
                         <div class="small-6 columns">
-                            <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+                            <a class="btn btn-link" href="{{ url('/register') }}"> New User ? Sign Up</a>
                         </div>
 
                     </div>

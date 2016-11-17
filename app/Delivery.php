@@ -18,5 +18,19 @@ class Delivery extends Model
     {
         return $this->belongsTo('App\Order');
     }
-    
+
+    public function ScopeShipped(){
+        return $this->where([
+            ['ship', '=', true],
+            ['arrive', '=', false],
+        ]);
+    }
+
+     public function ScopeUnship(){
+        return $this->where('ship', false);
+     }
+
+    public function ScopeArrived(){
+        return $this->where('arrive', true);
+    }
 }

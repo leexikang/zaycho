@@ -3514,7 +3514,7 @@ table.hover tr:nth-of-type(even):hover {
 
 .error {
   color: red;
-  font-size: 0.6em; }
+  font-size: 1em; }
 
 .order_wrapper {
   border: 0.5px solid #DDD;
@@ -3539,5 +3539,14 @@ table.hover tr:nth-of-type(even):hover {
 .staff-nav li {
   margin-bottom: .5em;
   margin-left: 1em; }
+
+.footer {
+  font-family: "proxima-nova","Helvetica Neue","Helvetica","Arial,sans-serif";
+  background-color: #009688;
+  min-height: 200px;
+  color: white; }
+
+.notification {
+  border-radius: 0; }
 
 /*# sourceMappingURL=app.css.map */

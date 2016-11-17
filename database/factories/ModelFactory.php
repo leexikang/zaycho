@@ -79,8 +79,19 @@ $factory->define(App\Staff::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
-        'password' => bcrypt("password"),
-        'remember_token' => str_random(10),
+        'password' => 'password',
+    ];
+});
+
+$factory->define(App\Photo::class, function (Faker\Generator $faker) {
+    return [
+        'path' => "img/650x450.png",
+        'thumbnail_path' => "img/100x100.png"
+    ];
+});
+
+$factory->define(App\Invoice::class, function (Faker\Generator $faker) {
+    return [
     ];
 });
 

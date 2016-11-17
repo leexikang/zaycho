@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Category;
+use Carbon\Carbon;
+
 
 class CategoriesController extends Controller
 {
@@ -17,8 +19,8 @@ class CategoriesController extends Controller
      */
     public function show(Request $request, $name)
     {
-        $category = Category::where(['name' => $name])->first();
-        $products = $category->products;
+        $category = Category::where(['name' => $name])->with('products')->first();
+        $products = $category->products()->where('due_date', '>', date('Y-m-d'))->get();
         return view('products.index', ['products' => $products]);
     }
     
