@@ -12,19 +12,11 @@
  */
 
 Route::get('test/', function(){
-
-    return sizeOf(DB::select(DB::raw(
-        "SELECT *
-        from users, products, orders, order_details
-        where users.id = orders.user_id
-        and order_details.order_id = orders.id
-        and order_details.product_id = products.id
-        and products.due_date < '" .date('Y-m-d'). "'
-        and products.bought > products.minimun_sale
-        and orders.user_id = ". 3 . "
-        and orders.checkout = 0;"
-    )));
+    return env('DB_DATABASE'); 
 });
+
+Route::get('/startup', 'StartupController@startup');
+Route::get('/initdatabase', 'StartupController@initDatabase');
 
 Route::get('/', 'ProductsController@index');
 Route::get('/products/s', 'ProductsController@search');

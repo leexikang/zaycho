@@ -4,6 +4,7 @@
         <span class="label success"> Staff </span>
         <br/>
         <br/>
+        <li> <a href="{!! url('staff/') !!}"> Dashboard </a> </li>
         <li> <a href="{!! url('staff/orders') !!}"> Orders </a> </li>
         <li> <a href="{!! url('staff/payments') !!}"> Payments </a> </li>
         <li> <a href="{!! url('staff/deliveries') !!}"> Shippings </a> </li>

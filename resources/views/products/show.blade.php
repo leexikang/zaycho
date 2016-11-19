@@ -5,8 +5,8 @@
     <div class="row">
         <div class="columns large-6 medium-6">
         <img class="thumbnail" 
-             width="400"
-             height="300"
+             width="650"
+             height="450"
         src="/{!! $product->photos->where('main', 1)->first()->path !!}">
         </div>
         <div class="columns large-5 medium-6">
@@ -54,10 +54,22 @@
                     @endforeach
 
                     </div>
+                    <div clas="row">
+                        <div class="small-10 small-centered columns">
+
+                            <div class="callout alert">
+                            Note: In many areas Saturday and Sunday delivery may be available. If weekend delivery is available to your destination, it will be specified on the product page and/or during checkout. Delivery estimates for FREE Prime Two-Day shipments to destinations that don’t have weekend delivery are based on two business day transit times, not including Saturday or Sunday.
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="tabs-panel" id="panel2">
             </div>
         </div>
     </div>
+    <br/>
+    <br/>
+
 @endsection

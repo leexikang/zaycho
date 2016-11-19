@@ -42,7 +42,7 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
 $factory->define(App\Order::class, function (Faker\Generator $faker) {
     return [
         'archive' => $faker->boolean(3),
-        'valid' => $faker->boolean(3),
+        'checkout' => false, 
         'user_id' => $faker->numberBetween(1, 10)
     ];
 });

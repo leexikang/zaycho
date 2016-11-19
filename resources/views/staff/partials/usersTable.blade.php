@@ -1,5 +1,5 @@
 <table>
-    <h4> Payments </h4>
+    <h4> Users </h4>
     <thead>
         <tr>
             <th width="50"> ID</th>

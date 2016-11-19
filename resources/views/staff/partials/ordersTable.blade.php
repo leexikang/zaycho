@@ -34,7 +34,7 @@
                             <td> <span class="success label"> Success </span> </td>
                         @endif
 
-                        <td>  <a href="#" class="button tiny expanded"> Edit </a> </td>
+                        <td>  <a href="{!! url('orders/'. $order->id . '/edit') !!}" class="button tiny expanded"> Edit </a> </td>
 
                     </tr>
                 @endforeach

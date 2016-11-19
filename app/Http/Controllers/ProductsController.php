@@ -32,7 +32,7 @@ class ProductsController extends Controller
        
     public function index(Request $request)
     {
-        $products = Product::latest()->get();
+        $products = Product::latest()->orderBy('created_at', 'desc')->get();
         return view("products.index", ['products' => $products]);
     }
 

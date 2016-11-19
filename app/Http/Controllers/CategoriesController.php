@@ -20,7 +20,7 @@ class CategoriesController extends Controller
     public function show(Request $request, $name)
     {
         $category = Category::where(['name' => $name])->with('products')->first();
-        $products = $category->products()->where('due_date', '>', date('Y-m-d'))->get();
+        $products = $category->products()->where('due_date', '>', date('Y-m-d'))->orderBy('created_at', 'desc')->get();
         return view('products.index', ['products' => $products]);
     }
     
